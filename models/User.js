@@ -1,0 +1,45 @@
+const mongoose = require('mongoose');
+
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    match: [
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        'Please enter a valid email address'],
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  phone_number:{
+      type:String,
+      required:[true,'Please provide your Phone Number'],
+      unique:true,
+      match:[
+        /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/,
+        'Please enter a valid Phone Number'
+      ]
+    },
+    isVerified: {
+      type: Boolean,
+      default: false
+    },
+    verificationToken: {
+      type: String
+    },
+    resetPasswordToken: {
+      type: String
+    },
+    resetPasswordExpires: {
+      type: Date
+    }
+
+});
+
+module.exports = mongoose.models.User || mongoose.model('User', userSchema);
