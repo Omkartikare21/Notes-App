@@ -1,8 +1,8 @@
 'use client'
 import LoginForm from "@/components/LoginForm";
+import { setToken } from "@/middlewares/generateToken";
 import { useTitle } from "@/utils/customHook";
 import axios from "axios";
-import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
@@ -24,10 +24,6 @@ const Login = () => {
           toast.error(error?.response?.data?.message || "Account Not Registered.");
         }
     };
-
-    const setToken = (token) => {
-    Cookies.set('token', token);
-  };
 
     return (
         <>

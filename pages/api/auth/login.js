@@ -38,9 +38,9 @@ const handler = async (req, res) => {
             return res.status(404).json({ success: false, message: "Invalid email or password" });
           }
 
-          // if(!existingUser.isVerified) {
-          //   return res.status(403).json({ success: false, message: "User is not verified" });
-          // }
+          if(!existingUser.isVerified) {
+            return res.status(403).json({ success: false, message: "Please Verify Your Email" });
+          }
 
           // Check for password.
           const isMatch = await bcrypt.compare(password, existingUser.password);
@@ -56,8 +56,6 @@ const handler = async (req, res) => {
           const refresh_token = createRefreshToken({ userId: existingUser._id });
           const token = access_token
 
-          // const token = jwt.sign({ userId: "125487" }, process.env.JWT_SECRET);
-          console.log("User logged in:", token);
           res.status(200).json({ msg: "Login Success",
               token,
               access_token,
@@ -65,15 +63,10 @@ const handler = async (req, res) => {
               existingUser
               });
         } catch (err) {
-          // console.error("Error creating user:", err);
-          console.log("Error occurred during login:", err);
-
           return res.status(500).json({ success: false, message: "Internal server error" });
         }
 
       } catch (err) {
-        console.log("Error occurred during login:",err);
-        
         res.status(400).json({ success: false });
       }
       break;
