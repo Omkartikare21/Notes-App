@@ -35,25 +35,25 @@ const handler = async (req, res) => {
           }).select("+password");
 
           if (!existingUser) {
-            return res.status(400).json({ success: false, message: "Invalid email or name" });
+            return res.status(404).json({ success: false, message: "Invalid email or password" });
           }
 
-          if(!existingUser.isVerified) {
-            return res.status(400).json({ success: false, message: "User is not verified" });
-          }
+          // if(!existingUser.isVerified) {
+          //   return res.status(403).json({ success: false, message: "User is not verified" });
+          // }
 
           // Check for password.
           const isMatch = await bcrypt.compare(password, existingUser.password);
           if (!isMatch) {
-            return res.status(400).json({ success: false, message: "Invalid password" });
+            return res.status(200).json({ success: false, message: "Invalid password" });
           }
 
           let vt = crypto.randomBytes(3).toString('hex')
           const verificationToken = parseInt(vt.toString('hex'),16).toString().substr(0,6)
 
           // Access and Refresh Token's
-          const access_token = createAccessToken({ id: existingUser._id });
-          const refresh_token = createRefreshToken({ id: existingUser._id });
+          const access_token = createAccessToken({ userId: existingUser._id });
+          const refresh_token = createRefreshToken({ userId: existingUser._id });
           const token = access_token
 
           // const token = jwt.sign({ userId: "125487" }, process.env.JWT_SECRET);

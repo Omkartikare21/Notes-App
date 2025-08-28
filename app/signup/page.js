@@ -39,7 +39,9 @@ const Signup = () => {
             console.log("Signup successful:", response.data);
             setToken(response.data.token);
             localStorage.setItem('justLoggedIn', '1') // to show only when he log's in and not on subsequent visit to dashboard page
-            router.push("/dashboard");
+            setTimeout(() => {
+              router.push("/dashboard");
+            }, 1500);
         } catch (error) {
             console.error("Error signing up:", error);
         }

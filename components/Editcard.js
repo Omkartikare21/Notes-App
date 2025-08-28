@@ -61,7 +61,7 @@ const Editcard = ({note}) => {
             <h3>{isEditing ? <input type="text" className={styles.inputField} value={editedNote?.title} onChange={(e) => setEditedNote({ ...editedNote, title: e.target.value })} /> : editedNote.title}</h3>
             <p>{isEditing ? <textarea className={styles.textAreaField} value={editedNote?.description} onChange={(e) => setEditedNote({ ...editedNote, description: e.target.value })} /> : editedNote.description}</p>
             <div className={styles.cardFooterRow}>
-            <footer className={styles.cardAuthor}>Author: {editedNote?.author.name}</footer>
+            {/* <footer className={styles.cardAuthor}>Author: {editedNote?.author.name}</footer> */}
             <footer className={styles.cardDate}>Date: {new Date(editedNote?.createdAt).toISOString().split('T')[0]}</footer>
             </div>
           </article>

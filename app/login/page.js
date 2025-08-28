@@ -4,7 +4,7 @@ import { useTitle } from "@/utils/customHook";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const router = useRouter();
@@ -21,7 +21,7 @@ const Login = () => {
             router.push("/dashboard");
             localStorage.setItem('justLoggedIn', '1') // to show only when he log's in and not on subsequent visit to dashboard page
         } catch (error) {
-            console.error("Error logging in:", error);
+          toast.error(error?.response?.data?.message || "Account Not Registered.");
         }
     };
 

@@ -19,7 +19,7 @@ export const Displaycard = ({ data }) => {
             <h3>{note.title}</h3>
             <p>{note.description}</p>
             <div className={styles.cardFooterRow} >
-              <footer className={styles.cardAuthor} >Author: {note?.author.name}</footer>
+              {/* <footer className={styles.cardAuthor} >Author: {note?.author.name}</footer> */}
               <footer className={styles.cardDate} >Date: { new Date(note.createdAt).toISOString().split('T')[0]}</footer>
             </div>
           </article>
