@@ -15,7 +15,7 @@ const handler = async (req, res) => {
   const { method } = req;
 
   switch (method) {
-    case "POST":
+    case "POST": //login route api/auth/login
       try {
 
         const { email, password } = req.body;
@@ -45,7 +45,7 @@ const handler = async (req, res) => {
           // Check for password.
           const isMatch = await bcrypt.compare(password, existingUser.password);
           if (!isMatch) {
-            return res.status(200).json({ success: false, message: "Invalid password" });
+            return res.status(404).json({ success: false, message: "Invalid password" });
           }
 
           let vt = crypto.randomBytes(3).toString('hex')

@@ -7,7 +7,7 @@ const Layout = ({ children }) => (
     <Head>
       <title>Notes App</title>
     </Head>
-    <Navbar />
+    {/* <Navbar /> */}
     {children}
   </>
 );

@@ -27,3 +27,20 @@ async function dbConnect() {
 }
 
 export default dbConnect;
+
+// Simple connection example with mongoose that might be useful in corn jobs, coz the db will be running contineously.
+
+// const mongoose = require('mongoose');
+
+// const connectDB = async () => {
+//   try {
+//     await mongoose.connect(process.env.MONGO_URI, {
+//     });
+//     console.log('MongoDB connected...');
+//   } catch (error) {
+//     console.error(error);
+//     process.exit(1);
+//   }
+// };
+
+// module.exports = connectDB;

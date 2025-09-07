@@ -26,6 +26,10 @@ const userSchema = new mongoose.Schema({
         'Please enter a valid Phone Number'
       ]
     },
+    profilePicUrl: {
+      type: String,
+      default: "../public/vercel.svg"
+    },
     isVerified: {
       type: Boolean,
       default: false

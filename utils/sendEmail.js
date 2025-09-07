@@ -10,7 +10,7 @@ const sendEmail = async (options) => {
     },
   });
 
-  if(options.type === 'REFER'){
+  if(options.type === 'REFER'){ //feature to be added later.
     await transporter.sendMail({
       from: `Notes App - ${process.env.SENDER_EMAIL}`,
       to: options.to,
@@ -26,7 +26,6 @@ const sendEmail = async (options) => {
     html: options.html,
   });
 }
-
 };
 
 module.exports = sendEmail;

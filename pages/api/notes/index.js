@@ -15,7 +15,6 @@ const logger = (handler) => async (req, res) => {
 const handler = async (req, res) => {
   await authMiddleware(req, res);
   const { method } = req;
-  console.log("BEFORE ENTERING", req.user);
 
   if (!req.user) {
     return res.status(401).json({ success: false, message: "Unauthorized" });
@@ -24,18 +23,26 @@ const handler = async (req, res) => {
   switch (method) {
     case "GET":
       try {
-
         const user = await User.findById(req.user.userId);
 
         const notes = await Notes.find({
-          author: user?.id
-        }).populate({ path: 'author', select: {'name': 1} });
+          author: user?.id,
+        }).populate({ path: "author", select: { name: 1 } });
 
-        if(!notes){
-          return res.status(404).json({ success: false, message: "No notes found" });
+        if (!notes) {
+          return res
+            .status(404)
+            .json({ success: false, message: "No notes found" });
         }
 
-        return res.status(200).json({ success: true, data: notes, user: user.name });
+        return res
+          .status(200)
+          .json({
+            success: true,
+            data: notes,
+            user: user.name,
+            userImg: user.profilePicUrl,
+          });
       } catch (err) {
         console.error("Error fetching notes 1:", err);
         res.status(400).json({ success: false });
@@ -43,12 +50,10 @@ const handler = async (req, res) => {
       break;
     case "POST":
       try {
-        console.log("Creating note:", req.user);
-
         const note = await Notes.create({
           title: req.body.title,
           description: req.body.description,
-          author: req.user.userId
+          author: req.user.userId,
         });
         await note.save();
 

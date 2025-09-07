@@ -2,7 +2,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { ToastContainer } from "react-toastify";
-import Providers from "@/utils/Providers";
+// import { Providers } from "@/utils/Providers";
+import UserProvider from "@/utils/UserContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,10 +25,14 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ToastContainer />
-        <Navbar />
-        <Providers> {/* This is useQuery provider in newer version of nextjs */}
-          {children}
-        </Providers>
+        <UserProvider>
+          <Navbar />
+          {/* <Providers> */}
+            {" "}
+            {/* This is useQuery provider in newer version of nextjs */}
+            {children}
+          {/* </Providers> */}
+        </UserProvider>
       </body>
     </html>
   );
