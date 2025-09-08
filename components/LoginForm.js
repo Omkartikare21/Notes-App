@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import styles from '@/styles/Home.module.css'
 import Link from 'next/link'
 
-const LoginForm = ({handleLogin, handleForgotPassword}) => {
+const LoginForm = ({handleLogin, handleForgotPassword, loading}) => {
   const [forgot, setForgot] = useState(false)
 
   return (
@@ -20,9 +20,9 @@ const LoginForm = ({handleLogin, handleForgotPassword}) => {
     </section>
     :
     <section className={styles.noteCard} >
-    <form onSubmit={handleForgotPassword}>
+    <form onSubmit={handleForgotPassword} >
             <input className={styles.inputField} type="text" name="email" placeholder="Email" required />
-            <button type="submit">Submit</button>
+            <button type="submit" disabled={loading} >{ loading ? "Submitting..." : "Submit"}</button>
             <p className={styles.description} style={{ color: 'black' }}>{`Don't have an account?`} <Link href="/signup" style={{ color: '#e243ba', textDecoration: 'underline' }} >Sign Up For Free</Link> </p>
         </form>
     </section>

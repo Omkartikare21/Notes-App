@@ -22,6 +22,7 @@ const ResetPassword = ({token}) => {
   const resetPassword = async () => {
     setError("");
     setSuccessMsg("");
+    setLoading(true)
 
     if (!newPassword || !confirmNewPassword) {
       setError("All fields are required.");

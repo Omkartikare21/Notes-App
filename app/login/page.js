@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 const Login = () => {
   const router = useRouter();
   // const [forgot, setForgot] = useState(false)
+  const [loading, setLoading] = useState(false)
   useTitle("Notes App | Login"); // To set title for pages, separate function
 
     const handleLogin = async (event) => {
@@ -29,6 +30,7 @@ const Login = () => {
     };
 
     const handleForgotPassword = async (e) =>{
+      setLoading(true)
       e.preventDefault()
       const formData = new FormData(e.target)
       const data = Object.fromEntries(formData)
@@ -47,7 +49,7 @@ const Login = () => {
 
     return (
         <>
-        <LoginForm handleLogin={handleLogin} handleForgotPassword={handleForgotPassword} />
+        <LoginForm handleLogin={handleLogin} handleForgotPassword={handleForgotPassword} loading={loading} />
        </>
     );
 };
