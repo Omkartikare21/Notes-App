@@ -28,7 +28,10 @@ const userSchema = new mongoose.Schema({
     },
     profilePicUrl: {
       type: String,
-      default: "../public/vercel.svg"
+      default: "https://res.cloudinary.com/mycloudupload/image/upload/v1757170353/profilepic/oqqga1etealzaal5ocxn.jpg"
+    },
+    publicId:{
+      type: String
     },
     isVerified: {
       type: Boolean,

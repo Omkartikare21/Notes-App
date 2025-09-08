@@ -35,7 +35,7 @@ switch (method) {
       const refresh_token = createRefreshToken({ userId: user._id });
 
       // const note = await Notes.create(req.body);
-      res.status(201).json({ msg: "User verified successfully",
+      return res.status(201).json({ msg: "User verified successfully",
         access_token,
         refresh_token,
         user: {
@@ -46,11 +46,11 @@ switch (method) {
         },
       });
     } catch (err) {
-      res.status(400).json({ success: false, msg: "Error verifying user" });
+      return res.status(400).json({ success: false, msg: "Error verifying user" });
     }
     break;
   default:
-    res.status(400).json({ success: false, msg: "Invalid request" });
+    return res.status(400).json({ success: false, msg: "Invalid request" });
     break;
   }
 };

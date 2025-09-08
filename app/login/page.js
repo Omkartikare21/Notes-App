@@ -38,9 +38,9 @@ const Login = () => {
         toast.success( res.data?.msg || "Check Your Email", {autoClose: 1500})
         setTimeout(() => window.location.href='/login', 1600)
       } catch (err) {
+        console.log("Error in forgot password",err)
         toast.error(err?.response?.data?.msg || "User Doesn't Exist")
         setTimeout(() => router.push('/signup'), 2000 )
-        console.log("Error in forgot password",err)
       }
       
     }

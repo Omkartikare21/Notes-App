@@ -193,10 +193,10 @@
   color: #fff;
   border: none;
   border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  width: 14rem;
-  margin-left: 4rem;
+  font-size: 1rem;
+  font-weight: 400;
+  width: 12rem;
+  margin-left: 5rem;
   cursor: pointer;
   transition: background 0.2s;
   box-shadow: 0 1px 4px rgba(0, 112, 243, 0.07);

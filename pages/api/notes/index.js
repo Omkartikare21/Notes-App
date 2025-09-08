@@ -45,7 +45,7 @@ const handler = async (req, res) => {
           });
       } catch (err) {
         console.error("Error fetching notes 1:", err);
-        res.status(400).json({ success: false });
+        return res.status(400).json({ success: false });
       }
       break;
     case "POST":
@@ -57,15 +57,15 @@ const handler = async (req, res) => {
         });
         await note.save();
 
-        res.status(201).json({ success: true, data: note });
+        return res.status(201).json({ success: true, data: note });
       } catch (err) {
         console.log("Error creating note 2:", err);
-        res.status(400).json({ success: false });
+        return res.status(400).json({ success: false });
       }
       break;
     default:
       console.error("Error fetching notes 3:", err);
-      res.status(400).json({ success: false });
+      return res.status(400).json({ success: false });
       break;
   }
 };

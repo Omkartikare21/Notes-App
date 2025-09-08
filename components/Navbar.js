@@ -41,7 +41,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div className={styles.right}>
-        {pathname !== "/login" && pathname !== "/signup" && pathname !== "/" && !pathname.startsWith("/forgotpassword") ? (
+        {pathname !== "/login" && pathname !== "/signup" && pathname !== "/" && !pathname.startsWith("/forgotpassword") && !pathname.startsWith("/confirm") ? (
           <>
           <Link href="/profile">
           <Image
@@ -54,7 +54,7 @@ const Navbar = () => {
           </Link>
           </>
         ) : null}
-        {pathname !== "/login" && pathname !== "/signup" && pathname !== "/" && !pathname.startsWith("/forgotpassword") ? (
+        {pathname !== "/login" && pathname !== "/signup" && pathname !== "/" && !pathname.startsWith("/forgotpassword") && !pathname.startsWith("/confirm") ? (
           <Link href="/login" className={styles.create} onClick={handleLogout}>
             Logout
           </Link>
@@ -64,6 +64,7 @@ const Navbar = () => {
         pathname !== "/signup" &&
         pathname !== "/" && 
         !pathname.startsWith("/forgotpassword") 
+        && !pathname.startsWith("/confirm")
         ? (
           <Link href="/new" className={styles.create}>
             Create new note

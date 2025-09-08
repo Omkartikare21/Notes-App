@@ -12,7 +12,6 @@ const NewNote = () => {
 
   const createNote = useCallback(async () => {
     try {
-      console.log("Creating note: in FUNCC");
       const res = await fetch("http://localhost:3000/api/notes", {
         method: "POST",
         headers: {
@@ -42,8 +41,6 @@ const NewNote = () => {
   }, [errors, createNote, isSubmitting]);
 
   const handleSubmit = (e) => {
-    console.log("Handling submit");
-
     e.preventDefault();
     let errs = validate();
     setErrors(errs);

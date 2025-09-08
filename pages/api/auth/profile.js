@@ -5,6 +5,8 @@ import dbConnect from "@/utils/dbconnect";
 import authMiddleware from "@/middlewares/auth.middleware";
 import bcrypt from "bcryptjs";
 import bodyParser from "body-parser";
+import { deleteCloudinaryImage, getPublicId } from "@/utils/deleteImage";
+import Notes from "@/models/Notes";
 
 const router = createRouter();
 dbConnect();
@@ -34,7 +36,7 @@ router.get(async (req, res) => {
     }
   } catch (err) {
     console.error("Error in profile handler:", err);
-    res.status(500).json({ success: false });
+    return res.status(500).json({ success: false });
   }
 });
 
@@ -63,24 +65,69 @@ router.put(async (req, res) => {
     user.password = await bcrypt.hash(newPassword, 10);
     await user.save();
 
-    res.status(200).json({ msg: "Password Changed Successfully" });
+    return res.status(200).json({ msg: "Password Changed Successfully" });
   } catch (err) {
     console.log("BE RESET PW:", err);
-    res.status(500).json({ success: false, message: "Reset Password Error" });
+    return res.status(500).json({ success: false, message: "Reset Password Error" });
   }
 });
 
 router.use(upload.single("profilePic")); // middleware for single file upload
 
-router.post((req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: "No file uploaded" });
-  }
+router.post(async (req, res) => {
+  try {
 
-  return res.status(200).json({
-    message: "Image uploaded successfully!",
-    filePath: req.file.path,
-  });
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+    let imgId = "";
+    const user = await User.findOne({ _id: req.user.userId });
+
+    if (!user.publicId) {
+      imgId = await getPublicId(user.profilePicUrl);
+    } else {
+      imgId = user.publicId;
+    }
+
+    await deleteCloudinaryImage(imgId);
+
+    user.profilePicUrl = req.file.path;
+    user.publicId = await getPublicId(req.file.path);
+    await user.save();
+
+    return res.status(200).json({
+      msg: "Image updated successfully!",
+    });
+  } catch (err) {
+    console.log("ERROR IN BE PPC", err);
+
+    return res.status(500).json({ msg: "Server Error at PPC" });
+  }
+});
+
+router.delete(async (req, res) => {
+  try {
+    const user = await User.findById(req.user?.userId);
+
+    let imgId = "";
+
+    if (!user.publicId) {
+      imgId = await getPublicId(user.profilePicUrl);
+    } else {
+      imgId = user.publicId;
+    }
+
+    await deleteCloudinaryImage(imgId);
+
+    await User.findByIdAndDelete(req.user?.userId);
+
+    await Notes.deleteMany({ author: req.user?.userId });
+
+    return res.status(200).json({ msg: "Account Deleted 😢" });
+  } catch (err) {
+    console.log("Delete User", err);
+    return res.status(500).json({ msg: "Server Error At Delete User" });
+  }
 });
 
 export const config = {
@@ -92,6 +139,6 @@ export const config = {
 export default router.handler({
   onError: (err, req, res) => {
     console.error(err);
-    res.status(500).end("Something went wrong!");
+    return res.status(500).end("Something went wrong!");
   },
 });

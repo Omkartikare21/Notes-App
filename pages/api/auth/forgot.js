@@ -63,13 +63,13 @@ router.post(async (req, res) => {
     return res.status(200).json({ msg: "Please Check Your Mail!" });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ msg: "Server error at FGPW" });
+    return res.status(500).json({ msg: "Server error at FGPW" });
   }
 });
 
 export default router.handler({
   onError: (err, req, res) => {
     console.error(err);
-    res.status(500).end("Something went wrong!");
+    return res.status(500).end("Something went wrong!");
   },
 });

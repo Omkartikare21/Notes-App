@@ -23,7 +23,7 @@ const ConfirmEmail = () => {
         if (response.data.user.name) {
           toast.success('Email verified successfully!');
           setToken(response.data.access_token);
-          setTimeout(() => router.push('/dashboard'), 2000);
+          setTimeout(() => window.location.href = "/dashboard", 2000);
         } else {
           toast.error('Email verification failed.');
         }

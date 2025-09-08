@@ -36,7 +36,6 @@ const Dashboard = () => {
           return;
         }
         
-        console.log("Fetched USER DATAAAAA:", response.data);
         if(typeof window !== 'undefined' && localStorage.getItem('justLoggedIn')){
           toast.success(`Welcome! ${ response.data.user.length !== 0 ? response.data?.user : response.data?.data[0]?.author?.name}`, { autoClose: 1500 }); //This is working.
           localStorage.removeItem('justLoggedIn'); // this works! only trigger's when logged in 1 time.
@@ -49,10 +48,9 @@ const Dashboard = () => {
           // )
           
         } catch (error) {
-          console.log("THIS IS THE F ERRORRRRR", error);
-          
-          toast.error(error?.response?.data?.message || "Error fetching notes 6546846464", { autoClose: 1500 });
-          // Cookies.remove('token');
+          console.log("THIS IS THE ERRORRRRR", error);
+          toast.error(error?.response?.data?.message || "Error fetching notes", { autoClose: 1500 });
+          Cookies.remove('token');
           setTimeout(() => router.push('/login'), 1500);
         }
       };

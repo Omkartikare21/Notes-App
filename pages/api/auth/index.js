@@ -17,25 +17,13 @@ const handler = async (req, res) => {
     case "GET":
       try {
         const notes = await User.find({email: req.body.email});
-        res.status(200).json({ success: true, data: notes });
+        return res.status(200).json({ success: true, data: notes });
       } catch (err) {
-        res.status(400).json({ success: false });
-      }
-      break;
-    case "POST":
-      try {
-
-
-        console.log("This is index js wrong", req.body);
-        
-        // const note = await Notes.create(req.body);
-        res.status(201).json({ success: true, data: [] });
-      } catch (err) {
-        res.status(400).json({ success: false });
+        return res.status(400).json({ success: false });
       }
       break;
     default:
-      res.status(400).json({ success: false });
+      return res.status(400).json({ success: false });
       break;
   }
 };

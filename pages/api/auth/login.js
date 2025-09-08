@@ -56,7 +56,7 @@ const handler = async (req, res) => {
           const refresh_token = createRefreshToken({ userId: existingUser._id });
           const token = access_token
 
-          res.status(200).json({ msg: "Login Success",
+          return res.status(200).json({ msg: "Login Success",
               token,
               access_token,
               refresh_token,
@@ -67,11 +67,11 @@ const handler = async (req, res) => {
         }
 
       } catch (err) {
-        res.status(400).json({ success: false });
+        return res.status(400).json({ success: false });
       }
       break;
     default:
-      res.status(400).json({ success: false });
+      return res.status(400).json({ success: false });
       break;
   }
 };

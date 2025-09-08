@@ -30,9 +30,9 @@ const handler = async (req, res) => {
           return res.status(404).json({ success: false, message: "Note not found" });
         }
 
-        res.status(200).json({ success: true, data: note });
+        return res.status(200).json({ success: true, data: note });
       } catch (err) {
-        res.status(400).json({ success: false, data: "Error fetching note" });
+        return res.status(400).json({ success: false, data: "Error fetching note" });
       }
       break;
     case "PUT":
@@ -47,10 +47,10 @@ const handler = async (req, res) => {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: note });
+        return res.status(200).json({ success: true, data: note });
       } catch (err) {
-        console.log("PUT ERR", err);
-        res.status(400).json({ success: false });
+        console.log("Notes PUT ERR", err);
+        return res.status(400).json({ success: false });
       }
       break;
     case "DELETE":
@@ -61,13 +61,13 @@ const handler = async (req, res) => {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: {} });
+        return res.status(200).json({ success: true, data: {} });
       } catch (err) {
-        res.status(400).json({ success: false });
+        return res.status(400).json({ success: false });
       }
       break;
     default:
-      res.status(400).json({ success: false });
+      return res.status(400).json({ success: false });
       break;
   }
 };

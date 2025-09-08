@@ -7,7 +7,6 @@ export const Displaycard = ({ data }) => {
     const router = useRouter();  
 
     const handleNoteClick = (id) => {
-    console.log("Note clicked:", id);
     router.push(`/${id}`);
     };
 

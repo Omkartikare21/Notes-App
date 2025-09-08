@@ -35,13 +35,17 @@ const Signup = () => {
         }
 
         try {
-            const response = await axios.post('/api/auth/signup', data);
+            const response = await axios.post('/api/auth/signup', formData,{
+                headers:{'Content-Type': 'multipart/form-data'}
+            }).then(toast.success("Creating Account... Redirecting Shortly")).then(
+                localStorage.setItem('justLoggedIn', '1') // to show only when he log's in and not on subsequent visit to dashboard page
+            )
             setToken(response.data.token);
-            localStorage.setItem('justLoggedIn', '1') // to show only when he log's in and not on subsequent visit to dashboard page
             setTimeout(() => {
-              router.push("/dashboard");
+            window.location.href = "/dashboard"
             }, 1500);
         } catch (error) {
+            console.log("USER ERROR", error)
             toast.error(error.response?.data?.message || "User Already Exists", { autoClose: 1500 });
         }
     };
