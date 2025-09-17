@@ -5,6 +5,7 @@ import styles from "@/styles/Home.module.css";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
+import { useSession } from "next-auth/react";
 
 export default function ProfilePage() {
   const [showModal, setShowModal] = useState(false);
@@ -85,15 +86,29 @@ export default function ProfilePage() {
     setTimeout(() => (window.location.href = "/profile"), 2500);
   };
 
+  const {data: session, status} = useSession()
+
+  if (status === "loading") {
+  return null
+}
+
   const profileDelete = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    const res = await axios.delete("/api/auth/profile", {
-      headers: {
-        Authorization: `Bearer ${Cookies.get("token")}`,
-      },
-    });
+    let res
+
+    if(session?.user !== undefined){
+      res = await axios.delete("/api/auth/profile",{
+        withCredentials: true
+      })
+    }else{ 
+      res = await axios.delete("/api/auth/profile", {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+      });
+    }
     await toast.success(res.data?.msg);
     setTimeout(() => (window.location.href = "/signup"), 2500);
   };
@@ -142,6 +157,7 @@ export default function ProfilePage() {
       <div className={styles.container}>
         <h1 className={styles.title}>Profile</h1>
 
+    { session?.user !== undefined ? null : <>
         <button
           onClick={() => setShowModal(true)}
           className={styles.resetButton}
@@ -155,6 +171,7 @@ export default function ProfilePage() {
         >
           Update ProfilePic
         </button>
+          </> }
         <button
           onClick={() => setShowDeleteModal(true)}
           className={styles.resetButton}

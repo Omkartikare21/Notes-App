@@ -2,10 +2,20 @@
 import React, { useState } from "react";
 import styles from "@/styles/Home.module.css";
 import Link from "next/link";
+import { useSession, signIn } from "next-auth/react";
+import Image from "next/image";
 
 const SignupForm = ({ handleSign }) => {
   const [show, setShow] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+
+  const { data: session, status } = useSession();
+
+  const handleGoogleLogin = (e) => {
+    e.preventDefault();
+    localStorage.setItem("justLoggedIn", "1");
+    signIn("google", { callbackUrl: "/dashboard" });
+  };
 
   return (
     <section className={styles.noteCard}>
@@ -52,8 +62,8 @@ const SignupForm = ({ handleSign }) => {
           >
             {show ? "🙈" : "👁️"}
           </button>
-          </div>
-          <div style={{ position: "relative" }}>
+        </div>
+        <div style={{ position: "relative" }}>
           <input
             className={styles.inputField}
             type={showConfirm ? "text" : "password"}
@@ -97,7 +107,10 @@ const SignupForm = ({ handleSign }) => {
         />
         <button type="submit">Sign Up</button>
       </form>
-      <p className={styles.description} style={{ color: "black" }}>
+      <p
+        className={styles.description}
+        style={{ color: "black", margin: "0.5rem auto" }}
+      >
         {`Don't have an account?`}{" "}
         <Link
           href="/login"
@@ -106,6 +119,25 @@ const SignupForm = ({ handleSign }) => {
           Log in
         </Link>{" "}
       </p>
+      <div className={styles.separator}>
+        <span>OR</span>
+      </div>
+      <button
+        type="button"
+        onClick={handleGoogleLogin}
+        className={`${styles.googleSignInButton}`}
+      >
+        <div className={styles.googleDiv}>
+          <Image
+            src="/images/google.svg"
+            alt="Google Logo"
+            width={20}
+            height={20}
+            style={{ padding: "0" }}
+          />
+          Sign up with Google
+        </div>
+      </button>
     </section>
   );
 };

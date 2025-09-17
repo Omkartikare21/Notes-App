@@ -291,13 +291,6 @@ section.notesSection {
       flex-grow: 1;
     }
 
-    /* .card footer {
-      margin-top: 1rem;
-      font-size: 0.875rem;
-      color: #888;
-      text-align: right;
-    } */
-
      .cardFooterRow {
   display: flex;
   justify-content: space-between;
@@ -558,130 +551,6 @@ section.notesSection {
 }
 
 
-/* Profile Page css */
-
-/* .container {
-  min-height: 100vh;
-  padding: 2rem;
-  background-color: #2b67df;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-}
-
-.resetButton {
-  padding: 0.75rem 1.5rem;
-  background-color: #2563eb;
-  color: white;
-  border-radius: 0.375rem;
-  cursor: pointer;
-  border: none;
-  transition: background-color 0.2s ease;
-}
-
-.resetButton:hover {
-  background-color: #1e40af;
-}
-
-.modalOverlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modalContent {
-  background: linear-gradient(45deg, #e7d126, #de1af0);
-  padding: 2rem;
-  border-radius: 0.5rem;
-  width: 100%;
-  max-width: 400px;
-}
-
-.modalTitle {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
-.error {
-  color: #dc2626;
-  margin-bottom: 0.75rem;
-}
-
-.success {
-  color: #16a34a;
-  margin-bottom: 0.75rem;
-}
-
-.label {
-  display: block;
-  margin-bottom: 0.75rem;
-  font-weight: 500;
-}
-
-.input {
-  width: 100%;
-  padding: 0.5rem 0.75rem;
-  margin-top: 0.25rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
-}
-
-.buttons {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.75rem;
-}
-
-.cancelButton {
-  background-color: #535e57;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.cancelButton:hover:enabled {
-  background-color: #9ca3af;
-}
-
-.cancelButton:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.submitButton {
-  background-color: #2563eb;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.submitButton:hover:enabled {
-  background-color: #1e40af;
-}
-
-.submitButton:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-} */
-
-
 .container {
   min-height: 100vh;
   padding: 2rem;
@@ -838,4 +707,71 @@ section.notesSection {
   opacity: 0.5;
 }
 
+/* Google Btn */
+.googleSignInButton {
+  background-color: #4285F4; 
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.2s ease; 
+}
 
+.googleSignInButton:hover {
+  background-color: #357AE8;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+.googleDiv{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.separator {
+  height: 1px;
+  background-color: #000000;
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.separator span {
+  padding: 0 8px;
+  color: #131313;
+  background-color: white;
+  font-weight: bold;
+  z-index: 2;
+}
+
+/* Add this at the end of your CSS file */
+.forgotPassword {
+  padding: 12px 24px;
+  background: #ff6b6be1;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.2);
+  margin-top: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.forgotPassword:hover {
+  background: #ff6b6b;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}

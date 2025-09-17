@@ -23,8 +23,8 @@ const handler = async (req, res) => {
   switch (method) {
     case "GET":
       try {
-        const user = await User.findById(req.user.userId);
-
+        const user = await User.findById(req.user?.userId);
+        
         const notes = await Notes.find({
           author: user?.id,
         }).populate({ path: "author", select: { name: 1 } });

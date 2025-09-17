@@ -1,23 +1,37 @@
-import jwt from 'jsonwebtoken';
+import { getToken } from "next-auth/jwt";
+import jwt from "jsonwebtoken";
 
-const authMiddleware = (req, res, next) => {
-  const token = req.headers['authorization']?.split(' ')[1];
-  if (!token) {
-    return res.status(401).json({ message: 'Unauthorized' });
+const authMiddleware = async (req, res, next) => {
+  const sessionToken = await getToken({
+    req,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
+
+  if (sessionToken) {
+    req.user = {
+      userId: sessionToken.id,
+      email: sessionToken.email,
+    };
+    if (typeof next === "function") return next();
+    return true;
   }
-try{
-  const user = jwt.verify(token, process.env.JWT_SECRET);
-  req.user = user;
-  if (typeof next === 'function') {
-    next(); // if the middleware requires next, like when i tested the GET '/api/auth/profile'
-    // that time the api was stalling, but now both express middleware and NextJS api routes work.
-    // if there is no next, it will just return true.
+
+  const auth = req.headers?.authorization;
+  if (auth && auth.startsWith("Bearer ")) {
+    const token = auth.split(" ")[1];
+    try {
+      const user = jwt.verify(token, process.env.JWT_SECRET);
+      req.user = user;
+      if (typeof next === "function") return next();
+      return true;
+    } catch (err) {
+      console.log(err);
+
+      return res.status(401).json({ message: "Invalid JWT Token" });
+    }
   }
-  return true;
-} catch (err) {
-  console.log("Auth Middleware Error:", err);
-  return res.status(403).json({ success: false, message: 'Unauthorized Access' });
-}
-}
+
+  return res.status(401).json({ message: "Unauthorized" });
+};
 
 export default authMiddleware;

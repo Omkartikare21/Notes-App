@@ -7,6 +7,7 @@ import bcrypt from "bcryptjs";
 import bodyParser from "body-parser";
 import { deleteCloudinaryImage, getPublicId } from "@/utils/deleteImage";
 import Notes from "@/models/Notes";
+import Accounts from "@/models/Accounts";
 
 const router = createRouter();
 dbConnect();
@@ -67,8 +68,9 @@ router.put(async (req, res) => {
 
     return res.status(200).json({ msg: "Password Changed Successfully" });
   } catch (err) {
-    console.log("BE RESET PW:", err);
-    return res.status(500).json({ success: false, message: "Reset Password Error" });
+    return res
+      .status(500)
+      .json({ success: false, message: "Reset Password Error" });
   }
 });
 
@@ -76,7 +78,6 @@ router.use(upload.single("profilePic")); // middleware for single file upload
 
 router.post(async (req, res) => {
   try {
-
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded" });
     }
@@ -111,13 +112,16 @@ router.delete(async (req, res) => {
 
     let imgId = "";
 
-    if (!user.publicId) {
-      imgId = await getPublicId(user.profilePicUrl);
-    } else {
-      imgId = user.publicId;
+    if (user.password !== undefined) {
+      if (!user.publicId) {
+        imgId = await getPublicId(user.profilePicUrl);
+      } else {
+        imgId = user.publicId;
+      }
+      await deleteCloudinaryImage(imgId);
     }
 
-    await deleteCloudinaryImage(imgId);
+    await Accounts.findOneAndDelete({ userId: user._id });
 
     await User.findByIdAndDelete(req.user?.userId);
 
@@ -125,7 +129,6 @@ router.delete(async (req, res) => {
 
     return res.status(200).json({ msg: "Account Deleted 😢" });
   } catch (err) {
-    console.log("Delete User", err);
     return res.status(500).json({ msg: "Server Error At Delete User" });
   }
 });

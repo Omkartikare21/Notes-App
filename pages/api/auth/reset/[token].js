@@ -8,7 +8,7 @@ import bodyParser from "body-parser";
 const router = createRouter();
 dbConnect();
 
-// router.use(authMiddleware);
+router.use(authMiddleware);
 
 router.use(bodyParser.json());
 
