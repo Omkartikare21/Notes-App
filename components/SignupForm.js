@@ -4,6 +4,7 @@ import styles from "@/styles/Home.module.css";
 import Link from "next/link";
 import { useSession, signIn } from "next-auth/react";
 import Image from "next/image";
+import CustomIcon from "./CustomIcon";
 
 const SignupForm = ({ handleSign }) => {
   const [show, setShow] = useState(false);
@@ -128,13 +129,14 @@ const SignupForm = ({ handleSign }) => {
         className={`${styles.googleSignInButton}`}
       >
         <div className={styles.googleDiv}>
-          <Image
+          {/* <Image
             src="/images/google.svg"
             alt="Google Logo"
             width={20}
             height={20}
             style={{ padding: "0" }}
-          />
+          /> */}
+          <CustomIcon />
           Sign up with Google
         </div>
       </button>

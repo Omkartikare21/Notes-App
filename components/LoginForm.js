@@ -4,6 +4,7 @@ import styles from "@/styles/Home.module.css";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
+import CustomIcon from "./CustomIcon";
 
 const LoginForm = ({ handleLogin, handleForgotPassword, loading }) => {
   const [forgot, setForgot] = useState(false);
@@ -46,13 +47,14 @@ const LoginForm = ({ handleLogin, handleForgotPassword, loading }) => {
             className={`${styles.googleSignInButton}`}
           >
             <div className={styles.googleDiv}>
-              <Image
+              {/* <Image
                 src="/images/google.svg"
                 alt="Google Logo"
                 width={20}
                 height={20}
                 style={{ padding: "0" }}
-              />
+              /> */}
+              <CustomIcon />
               Sign in with Google
             </div>
           </button>
