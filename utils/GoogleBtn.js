@@ -16,7 +16,7 @@ function getRandom(min, max) {
 function generateAnimationPath(size) {
   // Generate random movement keyframe percentages and positions within button bounds (subtract circle size)
   const points = [];
-  const steps = 5;
+  const steps = 4; // controls speed as well.
 
   for (let i = 0; i <= steps; i++) {
     points.push({
@@ -36,7 +36,7 @@ function generateAnimationPath(size) {
   return keyframe;
 }
 
-export default function GoogleButton({onClickGoogle}) {
+export default function GoogleButton({onClickGoogle, type}) {
   const [circles, setCircles] = useState([]);
 
   // Generate random circles with unique animation name and keyframes text inside style tag
@@ -62,7 +62,7 @@ export default function GoogleButton({onClickGoogle}) {
 
       <button className={styles.googleBtn} onClick={onClickGoogle} >
         <span className={styles.text}>
-            <CustomIcon />Sign In with Google</span>
+            <CustomIcon />Sign {type === 'New' ? 'up' : 'In'} with Google</span>
         <div className={styles.circles}>
           {circles.map(({ name, css, size, animationName }) => (
             <span

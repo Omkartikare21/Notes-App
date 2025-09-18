@@ -6,6 +6,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useTitle } from '@/utils/customHook';
+import Loading from '@/utils/Loading';
 
 const NotePage = () => {
   const { id } = useParams();
@@ -39,7 +40,7 @@ const NotePage = () => {
 }, [id, router]);
 
 if (isLoading) {
-  return <p>Loading...</p>;
+  return <Loading />;
 }
 
 if (!note) return <p>No note found...😕</p>;

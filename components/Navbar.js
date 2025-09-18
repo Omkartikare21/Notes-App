@@ -19,7 +19,7 @@ const Navbar = () => {
   const userImg = user?.filePath || user?.profilePicUrl;
 
   if (loading) {
-    return <div>Loading...</div>;
+    return null;
   }
 
   const handleLogout = async (e) => {

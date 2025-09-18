@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Editcard from '@/components/Editcard';
 import { useParams } from 'next/navigation';
 import Cookies from 'js-cookie';
+import Loading from '@/utils/Loading';
 
 const EditNotePage = () => {
   const { id } = useParams();
@@ -23,7 +24,7 @@ const EditNotePage = () => {
     fetchNote();
   }, [id]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading />;
 
   if (!note) return <p>Note not found.</p>;
   return (

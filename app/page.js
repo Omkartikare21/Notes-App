@@ -1,21 +1,22 @@
-import React from 'react'
-import { Displaycard } from '@/components/Displaycard';
-import { getNoteMetadata } from '@/utils/getNoteMetaData';
+"use client";
+import React, { useEffect } from "react";
+import { getNoteMetadata } from "@/utils/getNoteMetaData";
+import { useRouter } from "next/navigation";
+import Loading from "@/utils/Loading";
 
-export async function generateMetadata() {
-  return await getNoteMetadata("HOME");
-}
+const Note = () => {
+  getNoteMetadata("HOME");
+  const router = useRouter();
 
-const Note = async () => {
-  const res = await fetch("http://localhost:3000/api/notes");
-  const { data } = await res.json();
+  useEffect(() => {
+    setTimeout(() => router.push("/login"), 1500);
+  }, [router]);
+
   return (
     <>
-      <main>
-      <Displaycard data={data} />
-      </main>
+      <Loading type="ROOT" />
     </>
-  )
-}
+  );
+};
 
-export default Note
+export default Note;

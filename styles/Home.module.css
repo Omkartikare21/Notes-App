@@ -776,107 +776,6 @@ section.notesSection {
   box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
 }
 
-/* .googleBtn {
-  position: relative;
-  background-color: white;
-  border: 2px solid #ddd;
-  padding: 15px 50px;
-  font-size: 20px;
-  cursor: pointer;
-  border-radius: 10px;
-  overflow: hidden;
-  color: #333;
-  transition: background-color 0.3s ease;
-  z-index: 1;
-}
-
-.circles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0; 
-}
-
-
-.googleBtn:hover {
-  background-color: #eee;
-  transform: scale(1);
-}
-
-
-.circle {
-  opacity: 0;
-  position: absolute;
-  border-radius: 50%;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.googleBtn:hover .circle {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.red {
-  background-color: #DB4437;
-  width: 20px;
-  height: 20px;
-  top: 0;
-  left: 0;
-  transform: scale(0) translate(-50%, -50%);
-  transition-delay: 0s;
-}
-
-.blue {
-  background-color: #4285F4;
-  width: 20px;
-  height: 20px;
-  top: 0;
-  right: 0;
-  transform: scale(0) translate(50%, -50%);
-  transition-delay: 0.1s;
-}
-
-.yellow {
-  background-color: #F4B400;
-  width: 20px;
-  height: 20px;
-  bottom: 0;
-  left: 0;
-  transform: scale(0) translate(-50%, 50%);
-  transition-delay: 0.2s;
-}
-
-.green {
-  background-color: #0F9D58;
-  width: 20px;
-  height: 20px;
-  bottom: 0;
-  right: 0;
-  transform: scale(0) translate(50%, 50%);
-  transition-delay: 0.3s;
-}
-
-
-.googleBtn:hover .red {
-  transform: scale(1) translate(5px, 5px);
-}
-
-.googleBtn:hover .blue {
-  transform: scale(1) translate(-5px, 5px);
-}
-
-.googleBtn:hover .yellow {
-  transform: scale(1) translate(5px, -5px);
-}
-
-.googleBtn:hover .green {
-  transform: scale(1) translate(-5px, -5px);
-} */
-
-
 .googleBtn {
   position: relative;
   background-color: white;
@@ -908,6 +807,7 @@ section.notesSection {
   height: 100%;
   pointer-events: none;
   z-index: 0;
+  filter: blur(5px);
 }
 
 .circle {

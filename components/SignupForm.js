@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSession, signIn } from "next-auth/react";
 import Image from "next/image";
 import CustomIcon from "./CustomIcon";
+import GoogleButton from "@/utils/GoogleBtn";
 
 const SignupForm = ({ handleSign }) => {
   const [show, setShow] = useState(false);
@@ -123,23 +124,24 @@ const SignupForm = ({ handleSign }) => {
       <div className={styles.separator}>
         <span>OR</span>
       </div>
-      <button
+      {/* <button
         type="button"
         onClick={handleGoogleLogin}
         className={`${styles.googleSignInButton}`}
       >
         <div className={styles.googleDiv}>
-          {/* <Image
+          <Image
             src="/images/google.svg"
             alt="Google Logo"
             width={20}
             height={20}
             style={{ padding: "0" }}
-          /> */}
+          />
           <CustomIcon />
           Sign up with Google
         </div>
-      </button>
+      </button> */}
+            <GoogleButton onClickGoogle={handleGoogleLogin} type="New" />
     </section>
   );
 };
