@@ -40,7 +40,7 @@ const Navbar = () => {
         <Link
           href={
             pathname === "/login" || pathname === "/signup"
-              ? `/login`
+              ? `/`
               : `/dashboard`
           }
           className={styles.brand}
@@ -84,6 +84,11 @@ const Navbar = () => {
           </>
         ) : (
           <>
+          {pathname === '/' ? <>
+          <Link href="/login" className={styles.create}>
+            Log in
+          </Link>
+          </> : <>
             {pathname !== "/login" &&
             pathname !== "/signup" &&
             pathname !== "/" &&
@@ -96,10 +101,17 @@ const Navbar = () => {
               >
                 Logout
               </Link>
-            ) : null}{" "}
+            ) : null}{" "}</>
+          }
           </>
         )}
-
+      {pathname === '/' ? 
+      <>
+      <Link href="/signup" className={styles.create}>
+            Sign Up
+          </Link>
+      </>
+      :<>
         {pathname !== "/new" &&
         pathname !== "/login" &&
         pathname !== "/signup" &&
@@ -110,6 +122,7 @@ const Navbar = () => {
             Create new note
           </Link>
         ) : null}
+      </>}
       </div>
     </nav>
   );

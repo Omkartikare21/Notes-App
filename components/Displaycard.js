@@ -16,7 +16,7 @@ export const Displaycard = ({ data }) => {
         {data && data?.map((note) => (
           <article key={note._id} className={styles.card} onClick={() => handleNoteClick(note._id)}>
             <h3>{note.title}</h3>
-            <p>{note.description}</p>
+            <p className={styles.noteBody} dangerouslySetInnerHTML={{__html: note?.description}} />
             <div className={styles.cardFooterRow} >
               {/* <footer className={styles.cardAuthor} >Author: {note?.author.name}</footer> */}
               <footer className={styles.cardDate} >Date: { new Date(note.createdAt).toISOString().split('T')[0]}</footer>

@@ -54,11 +54,11 @@ const handler = NextAuth({
 
     async redirect({ url }) {
       if (url.includes("/login")) {
-        return process.env.FE_API_URL + "/login";
+        return process.env.NEXT_PUBLIC_FE_API_URL + "/login";
       }
 
       if (url == "/login") {
-        return process.env.FE_API_URL + "/dashboard";
+        return process.env.NEXT_PUBLIC_FE_API_URL + "/dashboard";
       }
 
       return url;

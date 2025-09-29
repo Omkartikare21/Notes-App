@@ -72,7 +72,7 @@ router.post(async (req, res) => {
       const htmlTemplate = await readHTML("./emails/verify-email.html");
       const emailTemplate = handlebars.compile(htmlTemplate);
       const replacements = {
-        baseURL: process.env.FE_API_URL,
+        baseURL: process.env.NEXT_PUBLIC_FE_API_URL,
         verificationToken: newUser.verificationToken,
       };
       const html = emailTemplate(replacements);

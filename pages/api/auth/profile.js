@@ -37,7 +37,7 @@ router.get(async (req, res) => {
     }
   } catch (err) {
     console.error("Error in profile handler:", err);
-    return res.status(500).json({ success: false });
+    return res.status(500).json({ success: false, msg: "SERVER ERR at PROFILE" });
   }
 });
 

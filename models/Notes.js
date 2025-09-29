@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { unique } = require('next/dist/build/utils');
 
 const NoteSchema = new mongoose.Schema({
     title: {
@@ -11,7 +10,6 @@ const NoteSchema = new mongoose.Schema({
     description: {
         type: String,
         required: [true, "Description is required"],
-        maxlength: [280, "Description must be at most 280 characters long"]
     },
     createdAt: {
         type: Date,

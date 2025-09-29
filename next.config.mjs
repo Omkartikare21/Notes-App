@@ -1,5 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: { serverSourceMaps: true },
+  productionBrowserSourceMaps: true, // client stack traces
+  webpack: (config, { isServer }) => {
+    if (isServer) config.devtool = 'source-map'; // server stack traces
+    return config;
+  },
   env: {
     MONGO_URI: process.env.MONGO_URI,
   },

@@ -1,6 +1,7 @@
-"use client"; // if using Next.js app dir and this is client component
+"use client";
 import Cookies from "js-cookie";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 const UserContext = createContext(null);
@@ -12,19 +13,21 @@ const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const { data: session, status } = useSession();
 
+  const router = useRouter()
+
   // Fetch user profile on mount
   useEffect(() => {
     let response;
     async function fetchUserProfile() {
       try {
-
+        if(status !== 'loading'){
         if (status === "authenticated" && session.user) {
           setUser(session.user);
           setLoading(false);
           return;
         }
 
-        const token = Cookies.get("token"); // or wherever you store JWT
+        const token = Cookies.get("token");
         if (!token) {
           setUser(null);
           setLoading(false);
@@ -35,19 +38,22 @@ const UserProvider = ({ children }) => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        });
+        })
 
-        if (!response.ok) {
+        if (!response.ok || response.status === 401 ) {
           setUser(null);
           setLoading(false);
+          router.push('/login')
           return;
         }
         const data = await response.json();
+        
         if (data.success) {
           setUser(data);
         } else {
           setUser(null);
         }
+      }
       } catch {
         setUser(null);
       } finally {
@@ -55,7 +61,7 @@ const UserProvider = ({ children }) => {
       }
     }
     fetchUserProfile();
-  }, [status, session]);
+  }, [status, session, router]);
   
   return (
     <UserContext.Provider value={{ user, setUser, loading }}>

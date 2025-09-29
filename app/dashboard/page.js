@@ -9,6 +9,7 @@ import { useTitle } from "@/utils/customHook";
 import { useSession } from "next-auth/react";
 
 const Dashboard = () => {
+  const { status } = useSession();
   const [notes, setNotes] = useState([]);
   const router = useRouter();
   useTitle("Notes App | Dashboard");
@@ -17,21 +18,21 @@ const Dashboard = () => {
   //   latitude: null,
   //   longitude: null
   // });
-  const { data: session, status } = useSession();
 
   useEffect(() => {
     const fetchNotes = async () => {
       let response;
       try {
-        if (status === "authenticated") {
-          response = await axios.get("/api/notes", {
-            withCredentials: true,
-          });
-        } else {
+        if (status !== "authenticated") {
+          
           response = await axios.get("/api/notes", {
             headers: {
               Authorization: `Bearer ${Cookies.get("token")}`,
             },
+          });
+        } else {
+          response = await axios.get("/api/notes", {
+            withCredentials: true,
           });
         }
         setNotes(response.data.data);
@@ -52,8 +53,8 @@ const Dashboard = () => {
           localStorage.removeItem("justLoggedIn"); // this works! only trigger's when logged in 1 time.
         }
       } catch (error) {
-        // console.log("THIS IS THE ERRORRRRR", error);
-        toast.error(error?.response?.data?.message || "Error fetching notes", {
+        console.log("THIS IS THE ERRORRRRR in dashboard", error);
+        toast.error(error?.response?.data?.message || "Error fetching notes hereeeee", {
           autoClose: 1500,
         });
         Cookies.remove("token");

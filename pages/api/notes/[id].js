@@ -1,30 +1,19 @@
-// this file is also know as dynamic routing page as it take the id of a particular and process it
-import dbConnect from "@/utils/dbconnect";
+import { createRouter, nc } from "next-connect";
 import Notes from "@/models/Notes";
+import dbConnect from "@/utils/dbconnect";
 import authMiddleware from "@/middlewares/auth.middleware";
+import bodyParser from "body-parser";
 
+const router = createRouter();
 dbConnect();
 
-// Example middleware function
-const logger = (handler) => async (req, res) => {
-  console.log(`Incoming request: ${req.method} ${req.url}`);
-  return handler(req, res);
-};
+router.use(authMiddleware);
+router.use(bodyParser.json())
 
-const handler = async (req, res) => {
-  // const {
-  //   query: { id }, //this "query" will take ID after "api/notes", we are destructuring "ID" and "method" here
-  //   method,
-  // } = req;
-
-      const { method } = req;
-      const { id } = req.query;
-      await authMiddleware(req, res)
-
-  switch (method) {
-    case "GET":
-      try {
-        const note = await Notes.findById(id).populate({ path: 'author', select: {'name': 1} });
+router.get(async (req, res) => {
+  try {
+    const note = await Notes.findById(req.query.id)
+      .populate({ path: 'author', select: {'name': 1} });
 
         if (!note) {
           return res.status(404).json({ success: false, message: "Note not found" });
@@ -32,30 +21,36 @@ const handler = async (req, res) => {
 
         return res.status(200).json({ success: true, data: note });
       } catch (err) {
-        return res.status(400).json({ success: false, data: "Error fetching note" });
+    console.log("Notes GET ERR", err);
+    return res.status(500).json({ success: false, msg: "SERVER ERR at NOTES/ID" });
       }
-      break;
-    case "PUT":
-      try {
-        const note = await Notes.findByIdAndUpdate(id, req.body, {
-          // we pass the req.body to get the updated text and then we pass this object
-          new: true, // it is for new value i guess
-          runValidators: true, // we chect the validation on the updated value
-        }).populate({ path: 'author', select: {'name': 1} });
+});
 
-        if (!note) {
+router.put(async (req, res) => {
+      try {
+        const updatedNote = await Notes.findByIdAndUpdate(
+          req.query.id,
+          req.body,
+          {
+            new: true,
+            runValidators: true,
+          }
+        ).populate({ path: 'author', select: {'name': 1} });
+        
+    if (!updatedNote) {
           return res.status(400).json({ success: false });
         }
 
-        return res.status(200).json({ success: true, data: note });
+    return res.status(200).json({ success: true, data: updatedNote });
       } catch (err) {
         console.log("Notes PUT ERR", err);
-        return res.status(400).json({ success: false });
+    return res.status(500).json({ success: false });
       }
-      break;
-    case "DELETE":
+});
+
+router.delete(async (req, res) => {
       try {
-        const deleteNote = await Notes.deleteOne({ _id: id });
+    const deleteNote = await Notes.deleteOne({ _id: req.query.id });
 
         if (!deleteNote) {
           return res.status(400).json({ success: false });
@@ -63,13 +58,21 @@ const handler = async (req, res) => {
 
         return res.status(200).json({ success: true, data: {} });
       } catch (err) {
-        return res.status(400).json({ success: false });
+    console.log("Notes DELETE ERR", err);
+    return res.status(500).json({ success: false });
       }
-      break;
-    default:
-      return res.status(400).json({ success: false });
-      break;
-  }
+});
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
 };
 
-export default logger(handler);
+export default router.handler({
+  onError: (err, req, res) => {
+    console.error(err);
+    return res.status(500).end("Something went wrong!");
+  },
+});
+

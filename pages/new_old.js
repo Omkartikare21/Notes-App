@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { Button, Form, Loader } from "semantic-ui-react";
 import fetch from "isomorphic-unfetch";
 import { useState, useEffect, useCallback } from "react";
 import Card from "@/components/Card";

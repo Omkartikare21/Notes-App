@@ -35,7 +35,7 @@ router.post(async (req, res) => {
     checkUser.resetPasswordExpires = Date.now() + 10 * 60 * 1000; //10 min expire time
 
     const resetURL =
-      process.env.FE_API_URL +
+      process.env.NEXT_PUBLIC_FE_API_URL +
       `/forgotpassword/${checkUser.resetPasswordToken}`;
 
     const htmlTemplate = await readHTML("./emails/forgot-password.html");

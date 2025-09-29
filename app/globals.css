@@ -1,7 +1,26 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+    /* --bg: #f7f6fb; ---> Main BG  */
+  --gradient: radial-gradient(1200px 600px at 10% -10%, #e6f0ff 0%, transparent 55%),
+              radial-gradient(1000px 500px at 110% 10%, #ffe9f0 0%, transparent 55%),
+              radial-gradient(900px 500px at 50% 110%, #e9fff7 0%, transparent 55%);
+  --card: #ffffff;
+  --text: #1b1d23;
+  --muted: #5b6270;
+  --primary: #6a7cff;       /* pastel indigo */
+  --primary-600: #5a6cf0;
+  --primary-700: #4c5ed8;
+  --ring: #b7c2ff;
+  --accent: #ff9ccf;        /* pastel pink */
+  --accent-2: #7be3c5;      /* pastel teal */
+  --shadow: 0 10px 30px rgba(50, 65, 140, 0.12);
+
 }
+
+html, body { padding: 0; margin: 0; }
+body { background: var(--bg); color: var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -10,19 +29,19 @@
   }
 }
 
-html,
+/* html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-}
+} */
 
-body {
+/* body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
+} */
 
 * {
   box-sizing: border-box;
@@ -40,3 +59,50 @@ a {
     color-scheme: dark;
   }
 }
+
+.noteEditor.rdw-editor-main {
+  height: auto !important;
+}
+
+
+.noteEditor .DraftEditor-root { min-height: 200px; }
+.noteEditor .DraftEditor-editorContainer,
+.noteEditor .public-DraftEditor-content { min-height: 200px; }
+
+.rdw-editor-wrapper {
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+}
+.rdw-editor-toolbar {
+  position: sticky;
+  /* top: -0.8rem; */
+  top: 0.1rem;
+  z-index: 3;
+  background: #f5f9ff;
+  box-shadow: 0 1px 0 rgba(0,0,0,.06);
+}
+
+/* below code is inserted in line 149 in home.css */
+/* :global(.noteEditor.rdw-editor-main) {
+  height: auto !important;
+  overflow: visible !important;
+  max-height: none !important;
+}
+
+:global(.noteEditor .DraftEditor-root) { min-height: 200px; }
+:global(.noteEditor .DraftEditor-editorContainer),
+:global(.noteEditor .public-DraftEditor-content) { min-height: 200px; }
+
+:global(.rdw-editor-wrapper) {
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+}
+:global(.rdw-editor-toolbar) {
+  position: sticky;
+  top: -0.8rem;
+  z-index: 3;
+  background: #f5f9ff;
+  box-shadow: 0 1px 0 rgba(0,0,0,.06);
+} */

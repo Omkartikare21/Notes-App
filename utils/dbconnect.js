@@ -18,6 +18,7 @@ async function dbConnect() {
     }
     if (!cached.promise) {
         cached.promise = connect(MONGODB_URI, {
+            dbName: 'Notes_App',
             useNewUrlParser: true,
             useUnifiedTopology: true,
         }).then((mongoose) => mongoose);

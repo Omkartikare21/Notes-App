@@ -84,36 +84,6 @@
   margin-top: 3rem;
 }
 
-.card {
-  margin: 1rem;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  width: 45%;
-}
-
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
-}
-
-.card h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
-}
-
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
-}
-
 .logo {
   height: 1em;
   margin-left: 0.5rem;
@@ -135,6 +105,51 @@
   overflow: hidden; /* Prevents overflow from child elements */
 }
 
+.noteCardNew {
+  margin: 2rem auto;
+  padding: 2rem !important;
+  background: #fff;
+  border: 1px solid #eaeaea;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+  max-width: 720px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-sizing: border-box;
+  overflow: hidden; /* Prevents overflow from child elements */
+}
+
+.noteCardNew form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  box-sizing: border-box;
+}
+
+.noteCardNew button[type="submit"] {
+  padding: 0.75rem 1.5rem;
+  background: #0070f3;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 1px 4px rgba(0, 112, 243, 0.07);
+}
+
+.noteCardNew button[type="submit"]:hover {
+  background: #005bb5;
+}
+
+/* THis was the place for the global code */
+
+/* --------------------------------------- */
+
 .noteCard form {
   width: 100%;
   display: flex;
@@ -144,9 +159,9 @@
 }
 
 .inputField,
-.textAreaField {
+.textAreaField{
   width: 100%;
-  box-sizing: border-box;
+  box-sizing: border-box !important;
   padding: 0.75rem 1rem;
   border: 1px solid #eaeaea;
   border-radius: 8px;
@@ -155,6 +170,12 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   transition: border-color 0.2s, box-shadow 0.2s;
   color: #1a1919;
+}
+
+.textAreaField{
+  height: 320px !important;
+  max-height: 100% !important;
+  overflow-y: auto !important;
 }
 
 .inputField:focus,
@@ -261,7 +282,7 @@ section.notesSection {
       background-color: #fffbe6;
       border-radius: 16px;
       box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-      padding: 2rem 1.5rem;
+      padding: 1.5rem;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
@@ -270,6 +291,13 @@ section.notesSection {
       word-wrap: break-word;
       width: 90%;
       aspect-ratio: 1/1;
+      margin: 1rem;
+      border: 1px solid #eaeaea;
+      overflow-y: auto;
+
+      scrollbar-width: thin;          /* auto | thin | none */
+      scrollbar-color: #9aa5ff #eef1ff;  /* thumb track */
+      scrollbar-gutter: stable;
     }
 
     .card:hover {
@@ -316,49 +344,249 @@ section.notesSection {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;        /* Center vertically */
-  width: 100vw;             /* Full viewport width */
-  background: #131313;      /* Keep background dark */
+  /* min-height: 100vh; */
+  height: 90vh;
+  /* width: 95vw;      */
+  width: 100%;     
+  background: #131313;
   box-sizing: border-box;
 }
 
 .card1 {
-    position: relative;
-  background-color: #fffbe6;        /* Sticky note color */
+  /* color: #000000; */
+  position: relative;
+  background-color: #fffbe6;      
   border-radius: 20px;              
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-  max-width: 700px;                  /*   Larger card */
-    width: 100%;
+  max-width: 700px;                  
+  width: 100%;
   min-height: 420px;
   padding: 2.5rem 2rem;
-  display: flex;
+
+  /* display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   transition: box-shadow 0.22s;
+  overflow: scroll;
+  height: 6rem; */
+
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  max-height: min(55vh, 720px);
+  overflow: hidden;
+
 }
 
-.card1 h3 {
-  font-size: 2rem;
-  font-weight: 700;
+/* .card1 h3 {
   color: #a77000;
-  margin-bottom: 1.2rem;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+} */
+
+.cardTitle h3 { 
+  flex: 0 0 50px;
+  margin: 0 0 .75rem; 
+  color: #a77000; 
+  line-height: 1.25; 
+  width: 490px;
+
+  overflow: hidden;                  
+  text-overflow: ellipsis;           
+  word-break: break-word;         
+
 }
 
-.card1 p {
-  font-size: 1.12rem;
-  color: #755c17;
-  margin-bottom: auto;
+
+/* Unified scroll area inside the card (editor + actions or note body) */
+.scrollArea {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto; /* toolbar | body | actions */
+  min-height: 0;      /* critical so the body can shrink and scroll */
+  overflow: auto;     /* the ONLY scroll container */
+}
+
+/* Keep the editor toolbar pinned at the top of the scrollArea */
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: inherit;
+}
+
+/* Don’t create another scroll context in the editor’s wrapper */
+.editorWrapper {
+  display: contents;
+}
+
+/* Let the editor body shrink and scroll within .scrollArea */
+.editor {
+  min-height: 0;
+}
+
+/* Target the library’s inner body safely via local ancestor */
+.scrollArea :global(.rdw-editor-main) {
+  min-height: 240px;  /* comfortable start */
+  height: auto;
+  max-height: none;   /* .scrollArea provides the cap */
+}
+
+/* Optional: keep actions visible at the bottom while body scrolls */
+.editorActions {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  background: inherit;
+  padding-top: 8px;
+}
+
+
+
+/* ------------------------------ */
+.inputFieldEdit {
+  width: 550px;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0.6rem 0.75rem;
+  border: 0.1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fffbe6;
+  color: #1a1a1a;
+  font-size: 1.05rem;
+  line-height: 1.4;
+  transition: border-color .2s, box-shadow .2s, background-color .2s;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.04);
+  text-overflow: ellipsis;
+  margin-bottom: 0.5rem;
+}
+
+.inputFieldEdit:focus {
+  outline: none;
+  /* border-color: #abaf69; */
+  /* box-shadow: 0 0 0 3px rgba(56,132,255,.15); */
+  background: #fffbe6;
+}
+
+/* Card shell */
+/* .card1 {
+  position: relative;
+  background-color: #fffbe6;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.18);
+  max-width: 700px;
+  width: 100%;
+  min-height: 420px;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+} */
+
+/* Title
+.card1 h3 {
+  color: #a77000;
+  margin: 0 0 1.2rem 0;
+  line-height: 1.3;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+} */
+
+/* Top-right buttons */
+/* .cardBtns {
+  position: absolute;
+  top: .75rem;
+  right: .75rem;
+  display: flex;
+  gap: .5rem;
+} */
+.btnPrimary, .btnDanger, .btnGhost {
+  appearance: none;
+  border: 1px solid rgba(0,0,0,.15);
+  background: #f2f3f5;
+  color: #1a1a1a;
+  padding: .35rem .6rem;
+  border-radius: 6px;
+  font-size: .9rem;
+  cursor: pointer;
+}
+.btnPrimary { background: #e8f0ff; border-color: #a9c7ff; }
+.btnDanger  { background: #ffeaea; border-color: #ffb3b3; color: #8b1a1a; }
+.btnGhost   { background: transparent; }
+.btnPrimary:hover { box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+.btnDanger:hover  { box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+
+/* Body defaults */
+.noteBody {
+  color: #1a1a1a;
+  font-size: 1.02rem;
   line-height: 1.6;
 }
+.noteBody p {
+  margin: 0 0 .75rem 0;
+  overflow-wrap: anywhere;
+}
 
-/* .card1 footer {
-  margin-top: 2rem;
-  font-size: 1rem;
-  color: #b8a157;
-  text-align: right;
-  width: 100%;
-} */
+/* Lists: restore sensible defaults */
+.noteBody ol,
+.noteBody ul {
+  margin: 0 0 .9rem 0;
+  padding-inline-start: 1.25rem;  /* logical property for LTR/RTL */
+  list-style-position: outside;
+}
+.noteBody li { margin: .25rem 0; }
+.noteBody ul { list-style-type: disc; }
+.noteBody ol { list-style-type: decimal; }
+.noteBody li ul { list-style-type: circle; }
+.noteBody li ul,
+.noteBody li ol { margin: .25rem 0 0 0; }
+
+/* Blockquote */
+.noteBody blockquote {
+  border-left: 4px solid #c8d1ff;
+  margin: 1rem 0;
+  padding: .25rem .75rem;
+  color: #555;
+  font-style: italic;
+  background: rgba(200, 209, 255, .12);
+  border-radius: 6px;
+}
+
+/* Code blocks */
+.noteBody pre {
+  background: #f6f8fa;
+  padding: .75rem 1rem;
+  border-radius: 8px;
+  overflow-x: auto;            /* horizontal scroll as a fallback */
+  white-space: pre-wrap;       /* preserve spaces & wrap long lines */
+  word-break: break-word;      /* break very long tokens if needed */
+  font: 0.95rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  margin: .75rem 0;
+}
+.noteBody pre code {
+  background: transparent;     /* avoid double background */
+  padding: 0;
+}
+
+/* Inline code */
+.noteBody :not(pre) > code {
+  background: rgba(0,0,0,.05);
+  padding: .1rem .25rem;
+  border-radius: 4px;
+  font: 0.94rem/1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+/* Links inside note */
+.noteBody a {
+  color: #1166cc;
+  text-decoration: underline;
+}
+
+.editorActions .btnPrimary{
+  margin-right: 0.5rem;
+}
+
 
 .card1:hover {
   box-shadow: 0 12px 50px rgba(0,0,0,0.25);
@@ -834,3 +1062,32 @@ section.notesSection {
 .blue   { background: #4285F4; }
 .yellow { background: #F4B400; }
 .green  { background: #0F9D58; }
+
+/* Scrollbar css */
+
+/* Chrome, Edge, Safari */
+.card::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.card::-webkit-scrollbar-track {
+  background: #eef1ff;            /* pastel track */
+  border-radius: 12px;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.08);
+}
+
+.card::-webkit-scrollbar-thumb {
+  background: linear-gradient(145deg, #6a7cff, #5a6cf0); /* thumb gradient */
+  border-radius: 12px;
+  border: 2px solid #eef1ff;      /* creates a gap around the thumb */
+  background-clip: padding-box;
+}
+
+.card::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(145deg, #5a6cf0, #4c5ed8);
+}
+
+.card::-webkit-scrollbar-corner {
+  background: transparent;
+}
