@@ -129,7 +129,7 @@ body { background: var(--bg); color: var(--text); font-family: ui-sans-serif, sy
 .heroVisual { position: relative; display: grid; place-items: center; }
 .lottieWrap {
   /* background: radial-gradient(60% 60% at 50% 50%, #ffffff 0%, #f7f6fb 100%); */
-  background: radial-gradient(60% 60%, #5a6cf0 0%, #000000 100%);
+  background: radial-gradient(60% 60% at 50% 50%, #5a6cf0 0%, #000000 100%);
   border: 1px solid color-mix(in oklab, var(--ring) 50%, transparent);
   border-radius: 20px;
   box-shadow: var(--shadow);
