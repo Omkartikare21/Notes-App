@@ -9,7 +9,9 @@ import { EditorState, ContentState } from "draft-js";
 const Editor = dynamic(() => import("react-draft-wysiwyg").then((mod) => mod.Editor), { ssr: false });
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 // import htmlToDraft from "html-to-draftjs";
-import { convertToHTML } from "draft-convert";
+// import { convertToHTML } from "draft-convert";
+import { stateToHTML } from "draft-js-export-html";
+import { stateFromHTML } from "draft-js-import-html";
 import DOMPurify from "dompurify";
 
 const Editcard = ({ note }) => {
@@ -19,50 +21,48 @@ const Editcard = ({ note }) => {
   const router = useRouter();
 
   useEffect(() => {
-    let cancelled = false
-    // const html = editedNote?.description || "<p></p>";
+    const html = editedNote?.description || "";
     // const { contentBlocks, entityMap } = htmlToDraft(html);
     // const contentStatePrev = ContentState.createFromBlockArray(contentBlocks, entityMap);
-    // setEditorState(EditorState.createWithContent(contentStatePrev));
-
-    const run = async () => {
-    const html = editedNote?.description || "";
-    const { default: htmlToDraft } = await import("html-to-draftjs");
-    const { contentBlocks, entityMap } = htmlToDraft(html);
-    const contentStatePrev = ContentState.createFromBlockArray(contentBlocks, entityMap);
-    if (!cancelled) {
-      setEditorState(EditorState.createWithContent(contentStatePrev));
-    }
-  };
-
-  run();
-  return () => { cancelled = true; };
-
+    const contentStatePrev = stateFromHTML(html)
+    setEditorState(EditorState.createWithContent(contentStatePrev));
   }, [editedNote?.description]);
 
   const handleEdit = () => setIsEditing(true);
 
-  const toHtml = convertToHTML({
-    blockToHTML: (block) => {
-      switch (block.type) {
-        case "code-block":
-        case "code":
-          return { start: "<pre><code>", end: "</code></pre>" }; // proper code block wrapper, check docs.
-        case "blockquote":
-          return { start: "<blockquote>", end: "</blockquote>" };
-        default:
-          return null; // use default tags
-      }
-    },
-    styleToHTML: (style) => {
-      if (style === "CODE") return <code />; // inline code must be an element or string.
-      return null;
-    },
-  });
+  // const toHtml = convertToHTML({
+  //   blockToHTML: (block) => {
+  //     switch (block.type) {
+  //       case "code-block":
+  //         return { start: "<pre><code>", end: "</code></pre>" }; // proper code block wrapper, check docs.
+  //       case "blockquote":
+  //         return { start: "<blockquote>", end: "</blockquote>" };
+  //       default:
+  //         return null; // use default tags
+  //     }
+  //   },
+  //   styleToHTML: (style) => {
+  //     if (style === "CODE") return <code />; // inline code must be an element or string.
+  //     return null;
+  //   },
+  // });
 
   const handleSave = async (event) => {
     event.preventDefault();
-    const html = toHtml(editorState.getCurrentContent()); // always a plain string.
+    // const html = toHtml(editorState.getCurrentContent()); // always a plain string.
+    const html = stateToHTML(editorState.getCurrentContent(), {
+      blockStyleFn: (block) => {
+      return block.getType() === "code-block" ? { element: "pre" } : undefined;
+    },
+    inlineStyleFn: (styles) => {
+      const color = [...styles].find((s) => typeof s === "string" && s.startsWith("color-"));
+      if (color) {
+        return { element: "span", style: { color: color.slice("color-".length) } };
+      }
+      if (styles.has("CODE")) return { element: "code" };
+      return undefined;
+    },
+    })
     const payload = { ...editedNote, description: html };
 
     const res = await fetch(`http://localhost:3000/api/notes/${note._id}`, {

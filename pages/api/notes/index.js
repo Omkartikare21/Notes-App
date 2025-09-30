@@ -20,7 +20,7 @@ router.get(async (req, res) => {
     
     const notes = await Notes.find({
       author: user._id,
-    }).populate({ path: "author", select: { name: 1, profilePicUrl: 1 } });
+    }).populate({ path: "author", select: { name: 1, profilePicUrl: 1 } }).sort({createdAt: -1});
 
     if (!notes) {
       return res.status(404).json({ success: false, message: "No notes found" });

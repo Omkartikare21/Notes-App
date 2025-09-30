@@ -6,9 +6,11 @@
   --gradient: radial-gradient(1200px 600px at 10% -10%, #e6f0ff 0%, transparent 55%),
               radial-gradient(1000px 500px at 110% 10%, #ffe9f0 0%, transparent 55%),
               radial-gradient(900px 500px at 50% 110%, #e9fff7 0%, transparent 55%);
-  --card: #ffffff;
-  --text: #1b1d23;
-  --muted: #5b6270;
+  /* --card: #201320; */
+  --card: #5a6cf02b;
+  --text: #ffffff;
+  /* --muted: #5b6270; */
+  --muted: #ced5e6;
   --primary: #6a7cff;       /* pastel indigo */
   --primary-600: #5a6cf0;
   --primary-700: #4c5ed8;
@@ -62,6 +64,9 @@ a {
 
 .noteEditor.rdw-editor-main {
   height: auto !important;
+  scrollbar-width: thin;
+  scrollbar-color: #9aa5ff #eef1ff;
+  scrollbar-gutter: stable;
 }
 
 

@@ -7,17 +7,18 @@ import Lottie from "lottie-react";
 import styles from "@/styles/landing.module.css";
 
 import animationData from "../public/images/home.json";
+import Image from "next/image";
 
 export default function Landing() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleEmailLogin = () => {
-    // router.push("/login");
-  };
+  // const handleEmailLogin = () => {
+  //   // router.push("/login");
+  // };
 
-  const handleGoogleLogin = () => {
-    // router.push("/signup")
-  };
+  // const handleGoogleLogin = () => {
+  //   // router.push("/signup")
+  // };
 
   return (
     <div className={styles.page}>
@@ -31,7 +32,7 @@ export default function Landing() {
               transition={{ duration: 0.5, ease: "easeOut" }}
               className={styles.title}
             >
-              Save notes anywhere, find them instantly
+              Save notes anywhere, Access them instantly.
             </motion.h1>
 
             <motion.p
@@ -52,7 +53,7 @@ export default function Landing() {
               <Link href="/signup" className={styles.ctaPrimary}>
                 Get started free
               </Link>
-              <button onClick={handleEmailLogin} className={styles.ctaSecondary}>
+              {/* <button onClick={handleEmailLogin} className={styles.ctaSecondary}>
                 Continue with Email
               </button>
               <button onClick={handleGoogleLogin} className={styles.googleBtn}>
@@ -81,7 +82,7 @@ export default function Landing() {
                   />
                 </svg>
                 Continue with Google
-              </button>
+              </button> */}
             </motion.div>
 
             <div className={styles.heroStats}>
@@ -90,7 +91,7 @@ export default function Landing() {
                 className={styles.statCard}
                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
               >
-                <span className={styles.statNumber}>10k+</span>
+                <span className={styles.statNumber}>1k+</span>
                 <span className={styles.statLabel}>Active users</span>
               </motion.div>
               <motion.div
@@ -106,7 +107,7 @@ export default function Landing() {
                 className={styles.statCard}
                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
               >
-                <span className={styles.statNumber}>1M+</span>
+                <span className={styles.statNumber}>1K+</span>
                 <span className={styles.statLabel}>Notes saved</span>
               </motion.div>
             </div>
@@ -142,10 +143,10 @@ export default function Landing() {
 
           <div className={styles.featureGrid}>
             {[
-              { title: "Cloud sync", desc: "Real-time sync across devices with conflict-free editing." },
-              { title: "Smart tags", desc: "Tag notes, filter instantly, and create saved views." },
-              { title: "Offline first", desc: "Write without internet; sync resumes automatically." },
-              { title: "Fast search", desc: "Blazing full-text search with typos tolerated." },
+              { title: "Cloud sync", desc: "Real-time sync across devices with conflict-free editing.", icon:"/images/cloud.png" },
+              { title: "Rich Text Notes", desc: "Write, format and organize ideaswith a powerful editor.", icon:"/images/textEditor.png" },
+              { title: "Secure Sign-in", desc: "Google OAuth for easy Sign-in and a Email Log-in.", icon:"/images/signIn.png" },
+              { title: "Access Anywhere", desc: "Check your notes securely from anywhere around the world.", icon:"/images/accessibility.png" },
             ].map((f, i) => (
               <motion.div
                 key={f.title}
@@ -156,7 +157,22 @@ export default function Landing() {
                 transition={{ duration: 0.35, ease: "easeOut", delay: i * 0.05 }}
                 whileHover={{ y: -4 }}
               >
-                <div className={styles.featureIcon} />
+                <div className={styles.featureIcon}>
+                  <Image
+                  alt={f.title}
+                  src={f.icon}
+                  width={36}
+                  height={36}
+                  />
+
+              {/* <Lottie
+                animationData={animationData}
+                loop={true}
+                className={styles.lottie}
+              /> */}
+
+                  {/* {f.icon} */}
+                </div>
                 <h3 className={styles.featureTitle}>{f.title}</h3>
                 <p className={styles.featureDesc}>{f.desc}</p>
               </motion.div>
@@ -164,7 +180,7 @@ export default function Landing() {
           </div>
         </section>
 
-        <section id="pricing" className={styles.pricing}>
+        {/* <section id="pricing" className={styles.pricing}>
           <motion.h2
             initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -210,7 +226,7 @@ export default function Landing() {
               </Link>
             </motion.div>
           </div>
-        </section>
+        </section> */}
 
         <section id="faq" className={styles.faq}>
           <motion.h2
@@ -226,12 +242,12 @@ export default function Landing() {
           <div className={styles.faqList}>
             {[
               {
-                q: "Is there a free plan?",
-                a: "Yes, the Free plan includes unlimited notes and sync."
+                q: "Is the app completely free?",
+                a: "Yes, the App is Free and includes unlimited notes and sync."
               },
               {
-                q: "Can notes be accessed offline?",
-                a: "Yes, notes work offline and sync when back online."
+                q: "Can notes be accessed across devices?",
+                a: "Yes, notes are stored in cloud and sync with other devices."
               },
               {
                 q: "Do third-party logins work?",
@@ -248,11 +264,12 @@ export default function Landing() {
       </main>
 
       <footer className={styles.footer}>
-        <span>© {new Date().getFullYear()}Notes App</span>
+        <span>© {new Date().getFullYear()} Notes App</span>
         <div className={styles.footerLinks}>
           <Link href="/privacy">Privacy</Link>
           <Link href="/terms">Terms</Link>
-          <Link href="/contact">Contact</Link>
+          {/* <Link target="_blank" href="mailto:omkartikare55@gmail.com">Contact</Link> */}
+          <a target="_blank" href="https://mail.google.com/mail/?view=cm&fs=1&to=omkartikare55@gmail.com&su=Support&body=Hi%20team,">Contact</a>
         </div>
       </footer>
     </div>
