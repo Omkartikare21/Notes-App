@@ -51,6 +51,7 @@ const Navbar = () => {
       <div className={styles.right}>
         {pathname !== "/login" &&
         pathname !== "/signup" &&
+        pathname !== "/gate" &&
         pathname !== "/" &&
         !pathname.startsWith("/forgotpassword") &&
         !pathname.startsWith("/confirm") ? (
@@ -92,6 +93,7 @@ const Navbar = () => {
             {pathname !== "/login" &&
             pathname !== "/signup" &&
             pathname !== "/" &&
+            pathname !== "/gate" &&
             !pathname.startsWith("/forgotpassword") &&
             !pathname.startsWith("/confirm") ? (
               <Link
@@ -115,6 +117,7 @@ const Navbar = () => {
         {pathname !== "/new" &&
         pathname !== "/login" &&
         pathname !== "/signup" &&
+        pathname !== "/gate" &&
         pathname !== "/" &&
         !pathname.startsWith("/forgotpassword") &&
         !pathname.startsWith("/confirm") ? (

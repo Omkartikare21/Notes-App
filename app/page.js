@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+// import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import Lottie from "lottie-react";
 import styles from "@/styles/landing.module.css";
