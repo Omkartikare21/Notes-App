@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 // import { Providers } from "@/utils/Providers";
 import UserProvider from "@/utils/UserContext";
 import AuthProvider from "@/utils/nextAuthProvider";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
     <html lang="en" 
 // suppressHydrationWarning
 >
+  <GoogleAnalytics />
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ToastContainer />
           <AuthProvider>
