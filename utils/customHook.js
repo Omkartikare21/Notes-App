@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
+import React from 'react'
 
 export const useTitle = (title) => {
-  useEffect(() => {
+  React.useEffect(() => {
     document.title = title;
   }, [title]);
 }

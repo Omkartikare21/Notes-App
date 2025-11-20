@@ -65,7 +65,7 @@ const Editcard = ({ note }) => {
     })
     const payload = { ...editedNote, description: html };
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_FE_API_URL}/api/notes/${note._id}`, {
+    const res = await fetch(`http://localhost:3000/api/notes/${note._id}`, {
       method: "PUT",
       headers: {
         authorization: `Bearer ${Cookies.get("token")}`,
@@ -85,7 +85,7 @@ const Editcard = ({ note }) => {
   }
 
   const handleDelete = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_FE_API_URL}/api/notes/${note._id}`, {
+    const res = await fetch(`http://localhost:3000/api/notes/${note._id}`, {
       method: "DELETE",
       headers: { authorization: `Bearer ${Cookies.get("token")}` },
     });

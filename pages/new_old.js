@@ -11,7 +11,7 @@ const NewNote = () => {
 
   const createNote = useCallback(async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_FE_API_URL}/api/notes`, {
+      const res = await fetch("http://localhost:3000/api/notes", {
         method: "POST",
         headers: {
           Accept: "application/json",

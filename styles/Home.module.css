@@ -433,7 +433,6 @@ section.notesSection {
   min-height: 240px;  /* comfortable start */
   height: auto;
   max-height: none;   /* .scrollArea provides the cap */
-  color: black;
 }
 
 /* Optional: keep actions visible at the bottom while body scrolls */

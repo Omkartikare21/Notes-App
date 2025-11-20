@@ -12,7 +12,7 @@ const EditNotePage = () => {
 
   useEffect(() => {
     async function fetchNote() {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_FE_API_URL}/api/notes/${id}`, { 
+      const res = await fetch(`http://localhost:3000/api/notes/${id}`, { 
         headers: {
           authorization: `Bearer ${Cookies.get('token')}`
         }
