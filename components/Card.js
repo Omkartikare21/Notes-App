@@ -61,7 +61,7 @@ const Card = () => {
     setErrorMsg({});
 
     try {
-      const res = await fetch("http://localhost:3000/api/notes", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_FE_API_URL}/api/notes`, {
         method: "POST",
         headers: {
           authorization: `Bearer ${Cookies.get("token")}`,
